@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Z01.Models;
+using System.Text.Encodings.Web;
 
 namespace Z01.Controllers
 {
@@ -15,18 +16,13 @@ namespace Z01.Controllers
             return View();
         }
 
-        public IActionResult About()
+        // GET: /Home/Details/ 
+        public IActionResult Details(int id, string title)
         {
-            ViewData["Message"] = "Your application description page.";
+            return HtmlEncoder.Default.Encode($"This is id {id}, title is: {id}");
+            //ViewData["Message"] = "Your application description page.";
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            //return View();
         }
 
         public IActionResult Error()
