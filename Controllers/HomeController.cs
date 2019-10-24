@@ -13,11 +13,13 @@ namespace Z01.Controllers
     {
         public IActionResult Index()
         {
+            Note[] notes = Utilities.GetNotes();
+            ViewData["Notes"] = notes;
             return View();
         }
 
         // GET: /Home/Details/ 
-        public IActionResult Details(int id, string title)
+        public String Details(int id, string title)
         {
             return HtmlEncoder.Default.Encode($"This is id {id}, title is: {id}");
             //ViewData["Message"] = "Your application description page.";
