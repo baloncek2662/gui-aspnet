@@ -14,8 +14,8 @@ namespace Z01.Controllers
         public IActionResult Index()
         {
             Note[] notes = Utilities.GetNotes();
-            ViewData["Notes"] = notes;
-            return View();
+            //ViewData["Notes"] = notes;
+            return View(notes);
         }
 
         // GET: /Home/Details/ 

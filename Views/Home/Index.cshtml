@@ -1,14 +1,99 @@
-﻿@{
-    ViewData["Title"] = "Notebook";
+﻿@model IEnumerable<Z01.Models.Note>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Main Page";
 }
+<!DOCTYPE html>
 
-<h2>Index</h2>
+<head>
 
-<p>Hello from our View Template!</p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
-<ul>
-    @for (int i = 0; i < ((Note[])ViewData["Notes"]).Length; i++)
-    {
-        <li>@((Note[])ViewData["Notes"])[i].Title</li>
-    }
-</ul>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+</head>
+
+<body>
+    <div style="background-color:#3e3f40;color:#e1e3e6;padding420px;">
+        <h2 style="padding-left:1em">Notes</h2>
+    </div>
+
+    <div class="container">
+        <div class="row" style="margin-bottom:10px;">
+            <div class="col-md-2">
+                <p>From:</p>
+                <div class="form-group">
+                    <div class='input-group date' id='from-dropdown'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p>To:</p>
+                <div class="form-group">
+                    <div class='input-group date' id='to-dropdown'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                Category:&nbsp;
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="apply-filters" class="btn btn-light">Filter</button>
+            </div>
+            <div class="col-md">
+                <button type="button" id="clear" class="btn btn-light">Clear filters</button>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+            </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td width="10%">
+                    @Html.ActionLink("Edit", "edit", new { id=item.Title }) |
+                    @Html.ActionLink("Delete", "delete", new { id = item.Title })
+                </td width="20%">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td width="70%">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+            </tr>
+        }
+        </table>
+        <button type="button" class="btn btn-light">@Html.ActionLink("New", "New", new { id=12  }) </button>
+    </div>
+</body>
+
+<script>
+    $(function() {
+        $('#from-dropdown').datetimepicker();
+    });
+    
+    $(function() {
+        $('#to-dropdown').datetimepicker();
+    });
+</script>
