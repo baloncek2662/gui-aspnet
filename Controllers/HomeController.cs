@@ -11,20 +11,24 @@ namespace Z01.Controllers
 {
     public class HomeController : Controller
     {
+        // GET: / 
+        // GET: /Home/ 
         public IActionResult Index()
         {
             Note[] notes = Utilities.GetNotes();
-            //ViewData["Notes"] = notes;
             return View(notes);
         }
 
         // GET: /Home/Details/ 
-        public String Details(int id, string title)
+        public IActionResult Details(int id, string title)
         {
-            return HtmlEncoder.Default.Encode($"This is id {id}, title is: {id}");
-            //ViewData["Message"] = "Your application description page.";
+            return View();
+        }
 
-            //return View();
+        // GET: /Home/New/ 
+        public IActionResult New()
+        {
+            return View();
         }
 
         public IActionResult Error()
