@@ -59,6 +59,7 @@ namespace Z01.Controllers
             string path = Utilities.BuildFullFilePath(NOTES_FOLDER, title, type);
             System.IO.File.WriteAllText(path, text);
         }
+        
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
