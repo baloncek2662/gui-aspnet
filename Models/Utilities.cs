@@ -5,18 +5,19 @@ namespace Z01.Models
 {
     public static class Utilities {
         public static Note[] GetNotes() {
-            Note[] allNotes = new Note[2]; // change 1 to n, which you get from counting files in root/notes
-            
-            Note test = new Note();
-            test.Title="Title";
-            test.Content="Test content 123 abcd";
-            test.CategoriesList=new string[2] {"sport","random"};
-            test.Date=DateTime.Now;
-            test.FileType = "txt";
-            allNotes[0] = test;
-            allNotes[1] = test;
-            
-            return allNotes;
+            DirectoryInfo dir = new DirectoryInfo("notes");
+            FileInfo[] files = dir.GetFiles();
+            Note[] notes = new Note[files.Length];
+            for (int i = 0; i < files.Length; i++) {
+                FileInfo file = files[i];
+                Note note = new Note();
+                
+                note.FileType = file.Extension.Substring(1); // removes the initial dot
+                note.Title = Path.GetFileNameWithoutExtension(file.Name); // removes extension from name
+                note.Date = file.CreationTime;
+                notes[i] = note;
+            }            
+            return notes;
         }
 
         public static Note GetNote(string title) {
