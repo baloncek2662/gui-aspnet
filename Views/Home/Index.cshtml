@@ -46,17 +46,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="dropdown">
-                    Category:
-                    <button class="btn btn-default dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" style="width:60%;">
+                    Category:<br/>
+                    <button class="btn btn-default dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" >
                         <span id="category-value" >Select</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="" onclick='selectCategory("Sport")'>Sport</a></li>
-                        <li><a href="" onclick='selectCategory("EGUI")'>EGUI</a></li>
-                        <li><a href="" onclick='selectCategory("Books")'>Books</a></li>
-                        <li><a href="" onclick='selectCategory("Shopping")'>Shopping</a></li>
+                        <li><a onclick='selectCategory("Sport")'>Sport</a></li>
+                        <li><a onclick='selectCategory("EGUI")'>EGUI</a></li>
+                        <li><a onclick='selectCategory("Books")'>Books</a></li>
+                        <li><a onclick='selectCategory("Shopping")'>Shopping</a></li>
                     </ul>
                 </div>
             </div>
@@ -82,8 +82,8 @@
         @foreach (var item in Model) {
             <tr>
                 <td width="10%">
-                    @Html.ActionLink("Edit", "details", new { id=item.Title }) |
-                    @Html.ActionLink("Delete", "details", new { id = item.Title })
+                    @Html.ActionLink("Edit", "Details", "Home", new { title = item.Title }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Home", new { title = item.Title, type = item.FileType }, null)
                 </td width="20%">
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
@@ -94,7 +94,7 @@
             </tr>
         }
         </table>
-        <button type="button" class="btn btn-light">@Html.ActionLink("New", "new") </button>
+        <button type="button" class="btn btn-light">@Html.ActionLink("New", "new")</button>
     </div>
 </body>
 
@@ -106,6 +106,7 @@
     $(function() {
         $('#to-dropdown').datetimepicker();
     });
+
     function selectCategory(value) {
         $('#category-value').text(value);
     }
