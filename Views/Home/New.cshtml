@@ -1,18 +1,48 @@
+@model Z01.Models.Note
 @{
     ViewBag.Title = "New";
 }
 <!DOCTYPE html>
+<head>
+    <title>New Note</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
 
 <body>
     <div class="container">
-    <h2>New Note</h2>
-        <div class="row" style="margin-bottom:10px;">            
-            <div class="col-md-2">
-                Title of the note:
-            </div>           
-            <div class="col-md">
-                bsafočjsafjla
-            </div>
-        </div>
+        @using (Html.BeginForm()) {
+            <fieldset>
+                <legend>Note</legend>
+
+                <div class="row" style="margin-bottom:10px">            
+                    <div class="col-md-1">
+                        @Html.LabelFor(model => model.Title)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.Title)
+                    </div>               
+                    <div class="col-md-1">
+                        @Html.LabelFor(model => model.IsMarkdown)
+                    </div>
+                    <div class="col-md">
+                        @Html.CheckBoxFor(model => model.IsMarkdown, true)
+                    </div>    
+                </div>
+
+                <div class="row">            
+                    <div class="col-md-1">
+                        @Html.LabelFor(model => model.Content)
+                    </div>
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.Content, new { cols = 100, @rows = 10 })
+                    </div>           
+                </div>
+
+                <p>
+                    <input type="submit" name="Save" value="Save" />
+                    <input type="submit" name="Cancel" value="Cancel" />
+                </p>       
+            </fieldset>
+        }
     </div>
 </body>
