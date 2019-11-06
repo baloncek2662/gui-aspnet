@@ -12,7 +12,8 @@ namespace Z01.Models
                 FileInfo file = files[i];
                 Note note = new Note();
                 
-                note.FileType = file.Extension.Substring(1); // removes the initial dot
+                string extension = file.Extension.Substring(1); // removes the initial dot
+                note.IsMarkdown = extension == "md"; 
                 note.Title = Path.GetFileNameWithoutExtension(file.Name); // removes extension from name
                 note.Date = file.CreationTime;
                 notes[i] = note;
@@ -28,10 +29,5 @@ namespace Z01.Models
             string name = title + "." + type;
             return Path.Combine(folder, name);
         }
-    }
-
-    public enum FileType {
-        Txt = 0,
-        Md = 1
     }
 }

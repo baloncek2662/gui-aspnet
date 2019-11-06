@@ -24,7 +24,7 @@ namespace Z01.Controllers
         // GET: /Home/Details/ 
         public IActionResult Details(string title)
         {
-            Note note = Utilities.GetNote("title");
+            Note note = Utilities.GetNote(title);
             return View(note);
         }
 
@@ -34,20 +34,37 @@ namespace Z01.Controllers
             return View();
         }
 
-        // GET: /Home/Delete/ 
-        public IActionResult Delete(string title, string type)
+        // POST: /Home/Save/ ...on save button click, redirects to index
+        [HttpPost, ActionName("New")]
+        public IActionResult Save(Note note)
         {
-            string path = Utilities.BuildFullFilePath(NOTES_FOLDER, title, type);
+            // save this shit
+
+            return RedirectToAction("Index");
+        }
+
+        // POST: /Home/Cancel/ ...on save button click, redirects to index
+        [HttpPost, ActionName("New")]
+        public IActionResult Cancel(Note note)
+        {
+            // save this shit
+            
+            return RedirectToAction("Index");
+        }
+
+        // GET: /Home/Delete/ 
+        public IActionResult Delete(string title, bool isMarkdown)
+        {
+            string convertedType = isMarkdown ? "md" : "txt";
+            string path = Utilities.BuildFullFilePath(NOTES_FOLDER, title, convertedType);
             if (System.IO.File.Exists(path)) {
                 try {
                     System.IO.File.Delete(path);
                 } catch (System.IO.IOException e) {
                     Console.WriteLine(e.Message);
-                    Note[] notesz = Utilities.GetNotes();
-                    return View("Index", notesz);
+                    return RedirectToAction("Index");
                 } 
             }            
-            Note[] notes = Utilities.GetNotes();
             return RedirectToAction("Index");
         }
 
