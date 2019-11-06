@@ -10,72 +10,47 @@ using System.Text.Encodings.Web;
 
 namespace Z01.Controllers
 {
-    public class HomeController : Controller
-    {
-        string NOTES_FOLDER = "notes";
+    public class HomeController : Controller {
         // GET: /  
         // GET: /Home/
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
+            Utilities.DeleteNote(Constants.TEMP_CATEGORY_FILE, Constants.TEMP_CATEGORY_FILE_EXTENSION); //deletes previously saved categories
             Note[] notes = Utilities.GetNotes();
             return View(notes);
         }
 
         // GET: /Home/Details/ 
-        public IActionResult Details(string title)
-        {
+        public IActionResult Details(string title) {
             Note note = Utilities.GetNote(title);
-            return View(note);
+            return View("New", note);
+        }
+        
+        // GET: /Home/Delete/ 
+        public IActionResult Delete(string title, bool isMarkdown) {
+            Utilities.DeleteNote(title, isMarkdown);
+            return RedirectToAction("Index");
         }
 
+        // "New" view methods    
         // GET: /Home/New/ 
-        public IActionResult New()
-        {
+        public IActionResult New() {
             return View();
         }
 
-        // POST: /Home/Save/ ...on save button click, redirects to index
-        [HttpPost, ActionName("New")]
-        public IActionResult Save(Note note)
-        {
-            // save this shit
+        // POST: /Home/New/ ...on save button click, redirects to index
+        [HttpPost]
+        public IActionResult New(Note note, string actionType) {
+            if (actionType == "Save") {
+                note.Save();
+            } else if (actionType == "Add") {
+                note.AddCategory(note.CategoryAction);
+                return View();
+            } else if (actionType == "Remove") {
+                return View();                
+            } 
 
             return RedirectToAction("Index");
-        }
-
-        // POST: /Home/Cancel/ ...on save button click, redirects to index
-        [HttpPost, ActionName("New")]
-        public IActionResult Cancel(Note note)
-        {
-            // save this shit
-            
-            return RedirectToAction("Index");
-        }
-
-        // GET: /Home/Delete/ 
-        public IActionResult Delete(string title, bool isMarkdown)
-        {
-            string convertedType = isMarkdown ? "md" : "txt";
-            string path = Utilities.BuildFullFilePath(NOTES_FOLDER, title, convertedType);
-            if (System.IO.File.Exists(path)) {
-                try {
-                    System.IO.File.Delete(path);
-                } catch (System.IO.IOException e) {
-                    Console.WriteLine(e.Message);
-                    return RedirectToAction("Index");
-                } 
-            }            
-            return RedirectToAction("Index");
-        }
-
-        // 2nd view methods     ??mogoce premakni v drug controller?
-        public void AddNote(string title, string text, string type, string[] categories) {            
-            if (!System.IO.Directory.Exists(NOTES_FOLDER)) {
-                System.IO.Directory.CreateDirectory(NOTES_FOLDER);
-            }
-            string path = Utilities.BuildFullFilePath(NOTES_FOLDER, title, type);
-            System.IO.File.WriteAllText(path, text);
-        }
+        } 
         
         public IActionResult Error()
         {
