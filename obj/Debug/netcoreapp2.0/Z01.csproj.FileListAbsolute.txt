@@ -8,3 +8,16 @@
 /home/users/gmartic/Z01/obj/Debug/netcoreapp2.0/Z01.AssemblyInfo.cs
 /home/users/gmartic/Z01/obj/Debug/netcoreapp2.0/Z01.dll
 /home/users/gmartic/Z01/obj/Debug/netcoreapp2.0/Z01.pdb
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/appsettings.Development.json
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/appsettings.json
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/bundleconfig.json
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/Z01.deps.json
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/Z01.runtimeconfig.json
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/Z01.runtimeconfig.dev.json
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/Z01.dll
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/bin/Debug/netcoreapp2.0/Z01.pdb
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/obj/Debug/netcoreapp2.0/Z01.csprojAssemblyReference.cache
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/obj/Debug/netcoreapp2.0/Z01.AssemblyInfoInputs.cache
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/obj/Debug/netcoreapp2.0/Z01.AssemblyInfo.cs
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/obj/Debug/netcoreapp2.0/Z01.dll
+/home/gasper/Documents/WUT-Study-Material/GUI/Z01/obj/Debug/netcoreapp2.0/Z01.pdb

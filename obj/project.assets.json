@@ -12664,23 +12664,23 @@
     ]
   },
   "packageFolders": {
-    "/home/users/gmartic/.nuget/packages/": {},
+    "/home/gasper/.nuget/packages/": {},
     "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/users/gmartic/Z01/Z01.csproj",
+      "projectUniqueName": "/home/gasper/Documents/WUT-Study-Material/GUI/Z01/Z01.csproj",
       "projectName": "Z01",
-      "projectPath": "/home/users/gmartic/Z01/Z01.csproj",
-      "packagesPath": "/home/users/gmartic/.nuget/packages/",
-      "outputPath": "/home/users/gmartic/Z01/obj/",
+      "projectPath": "/home/gasper/Documents/WUT-Study-Material/GUI/Z01/Z01.csproj",
+      "packagesPath": "/home/gasper/.nuget/packages/",
+      "outputPath": "/home/gasper/Documents/WUT-Study-Material/GUI/Z01/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/users/gmartic/.nuget/NuGet/NuGet.Config"
+        "/home/gasper/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -12707,16 +12707,23 @@
             "version": "[2.0.7, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }
