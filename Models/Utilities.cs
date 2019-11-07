@@ -21,6 +21,29 @@ namespace Z01.Models
             return notes.ToArray();
         }
 
+        public static Note[] GetFilteredNotes(int page, DateTime from, DateTime to, string category) {
+            DirectoryInfo dir = new DirectoryInfo("notes");
+            FileInfo[] files = dir.GetFiles();
+            List<Note> notes = new List<Note>();
+            int extra = 0;
+            for (int i = (page - 1) * Constants.NOTES_PER_PAGE; i < extra + page * Constants.NOTES_PER_PAGE && i < files.Length; i++) {
+                FileInfo file = files[i];
+                string extension = file.Extension.Substring(1); // removes the initial dot
+                Note note = GetNote(Path.GetFileNameWithoutExtension(file.Name), extension);
+                note.Date = file.CreationTime;
+
+                bool hasCategory = Array.Exists(note.CategoriesList, element => element == category) || category == null;
+                bool isFrom = DateTime.Compare(note.Date, from) > 0;
+                bool isTo = DateTime.Compare(note.Date, to) < 0;
+                if (hasCategory && isFrom && isTo) {            
+                    notes.Add(note);
+                } else {
+                    extra++;
+                }
+            }            
+            return notes.ToArray();
+        }
+
         public static Note GetNote(string title, string extension) {
             Note note = new Note();
             string path = BuildFullFilePath(Constants.NOTES_FOLDER, title, extension);
@@ -100,6 +123,24 @@ namespace Z01.Models
 
             System.IO.File.AppendAllLines(writePath, categories); 
 
+        }
+
+        public static string[] GetAllFilesCategories() {
+            DirectoryInfo dir = new DirectoryInfo("notes");
+            FileInfo[] files = dir.GetFiles();
+            List<string> categories = new List<string>();
+            for (int i = 0; i < files.Length; i++) {
+                FileInfo file = files[i];
+                string extension = file.Extension.Substring(1); // removes the initial dot
+                Note note = GetNote(Path.GetFileNameWithoutExtension(file.Name), extension);
+                for (int j = 0; j < note.CategoriesList.Length; j++) {
+                    bool alreadyExist = categories.Contains(note.CategoriesList[j]);
+                    if (!alreadyExist) {
+                        categories.Add(note.CategoriesList[j]);
+                    }
+                }
+            }        
+            return categories.ToArray();    
         }
 
         public static int GetNumberOfFiles() {

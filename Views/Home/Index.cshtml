@@ -24,50 +24,30 @@
     </div>
 
     <div class="container" style="margin-top:20px">
-        <div class="row" style="margin-bottom:10px;">
-            <div class="col-md-2">
-                From:
-                <div class="form-group">
-                    <div class='input-group date' id='from-dropdown'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+
+        @using (Html.BeginForm()) {
+            <div class="row" style="margin-bottom:10px;">
+                <div class="col-md-4">
+                    From: @Html.EditorFor(model => model.From)
+                </div>
+                <div class="col-md-3">
+                    To: @Html.EditorFor(model => model.To)
+                </div>
+                <div class="col-md-2">
+                    <div class="dropdown">
+                        Category:
+                        @Html.DropDownListFor(m => m.Category, Model.AllCategories.Select(m => new SelectListItem { Text = m, Value = m }),
+                            "All", null)
                     </div>
                 </div>
-            </div>
-            <div class="col-md-2">
-                To:
-                <div class="form-group">
-                    <div class='input-group date' id='to-dropdown'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+                <div class="col-md-1">
+                    <input type="submit" name="actionType" value="Filter"/>
+                </div>
+                <div class="col-md">
+                    <input type="submit" name="actionType" value="Clear filters"/>
                 </div>
             </div>
-            <div class="col-md-1">
-                <div class="dropdown">
-                    Category:<br/>
-                    <button class="btn btn-default dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" >
-                        <span id="category-value" >Select</span> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a onclick='selectCategory("Sport")'>Sport</a></li>
-                        <li><a onclick='selectCategory("EGUI")'>EGUI</a></li>
-                        <li><a onclick='selectCategory("Books")'>Books</a></li>
-                        <li><a onclick='selectCategory("Shopping")'>Shopping</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-1">
-                <button type="button" id="apply-filters" class="btn btn-light">Filter</button>
-            </div>
-            <div class="col-md">
-                <button type="button" id="clear" class="btn btn-light">Clear filters</button>
-            </div>
-        </div>
+        }
 
         <table class="table">
             <tr>

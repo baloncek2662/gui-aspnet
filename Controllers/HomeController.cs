@@ -13,10 +13,13 @@ namespace Z01.Controllers
     public class HomeController : Controller {
         // GET: /  
         // GET: /Home/
-        public IActionResult Index(int page) {
+        public IActionResult Index(IndexView input, int page, string actionType) {
             Utilities.DeleteNote("16wnvTJUtjn7vU0OAUYl", false); //deletes previously saved categories
 
             IndexView model = new IndexView();
+
+            model.AllCategories = Utilities.GetAllFilesCategories();
+
             model.MaxPages = Utilities.GetMaxPages();
             if (page == 0) {
                 model.Page = 1;
@@ -25,7 +28,11 @@ namespace Z01.Controllers
             } else {
                 model.Page = page;
             }
-            model.Notes = Utilities.GetNotes(model.Page);
+            if (actionType == "Filter" && input != null) {
+                model.Notes = Utilities.GetFilteredNotes(model.Page, input.From, input.To, input.Category);
+            } else {
+                model.Notes = Utilities.GetNotes(model.Page);
+            }
 
             return View(model);
         }
