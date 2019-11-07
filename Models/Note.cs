@@ -28,6 +28,10 @@ namespace Z01.Models
             string[] formattedContent = FormatContent();
 
             string path = Utilities.BuildFullFilePath(Constants.NOTES_FOLDER, this.Title, Utilities.ConvertToExtenison(this.IsMarkdown));
+            string alternatePath = Utilities.BuildFullFilePath(Constants.NOTES_FOLDER, this.Title, Utilities.ConvertToExtenison(!this.IsMarkdown));
+            if (File.Exists(alternatePath)) {
+                Utilities.DeleteNote(this.Title, !this.IsMarkdown);
+            }
             System.IO.File.WriteAllLines(path, formattedContent); 
         }
 

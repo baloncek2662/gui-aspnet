@@ -7,7 +7,7 @@ namespace Z01.Models
 {
     public static class Utilities {
         public static Note[] GetNotes(int page) {
-            DirectoryInfo dir = new DirectoryInfo("notes");
+            DirectoryInfo dir = new DirectoryInfo(Constants.NOTES_FOLDER);
             FileInfo[] files = dir.GetFiles();
             List<Note> notes = new List<Note>();
             for (int i = (page - 1) * Constants.NOTES_PER_PAGE; i < page * Constants.NOTES_PER_PAGE && i < files.Length; i++) {
@@ -95,7 +95,10 @@ namespace Z01.Models
             for (int i = 0; i < allCategories.Count - 1; i++) {
                 formatted += allCategories[i] + ", ";
             }
-            formatted += allCategories[allCategories.Count-1];
+            if (allCategories.Count > 0) {
+                formatted += allCategories[allCategories.Count-1];
+            }
+
             return formatted;
         }
 

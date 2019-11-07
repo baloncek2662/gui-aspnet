@@ -14,6 +14,9 @@ namespace Z01.Controllers
         // GET: /  
         // GET: /Home/
         public IActionResult Index(IndexView input, int page, string actionType) {
+            if (!Directory.Exists(Constants.NOTES_FOLDER)) {
+                Directory.CreateDirectory(Constants.NOTES_FOLDER);                
+            }
             Utilities.DeleteNote("16wnvTJUtjn7vU0OAUYl", false); //deletes previously saved categories
 
             IndexView model = new IndexView();
@@ -45,9 +48,16 @@ namespace Z01.Controllers
  
         // GET: /Home/New/ 
         public IActionResult New(string title) {
+            System.IO.File.AppendAllText(Constants.TEMP_CATEGORY_FILE, ""); //creates file if it doesnt exist
             Note note = null;
             if (title != null) {
-                note = Utilities.GetNote(title, "txt");
+                string txtPath = Utilities.BuildFullFilePath(Constants.NOTES_FOLDER, title, "txt");
+                bool isTextFile = System.IO.File.Exists(txtPath);
+                if (isTextFile) {
+                    note = Utilities.GetNote(title, "txt");
+                } else {
+                    note = Utilities.GetNote(title, "md");
+                }
                 Utilities.CreateTemporaryCategoryFile(title, "txt");
             }
             return View(note);
