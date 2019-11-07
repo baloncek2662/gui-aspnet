@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Z01.Models.Note>
-
+﻿@model Z01.Models.IndexView
 @{
     Layout = null;
     ViewBag.Title = "Main Page";
@@ -74,17 +73,17 @@
             <tr>
                 <th></th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Date)
+                    Date
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    Title
                 </th>
             </tr>
 
-        @foreach (var item in Model) {
+        @foreach (var item in Model.Notes) {
             <tr>
                 <td width="10%">
-                    @Html.ActionLink("Edit", "Details", "Home", new { title = item.Title }, null) |
+                    @Html.ActionLink("Edit", "New", "Home", new { title = item.Title }, null) |
                     @Html.ActionLink("Delete", "Delete", "Home", new { title = item.Title, IsMarkdown = item.IsMarkdown }, null)
                 </td width="20%">
                 <td>
@@ -95,7 +94,19 @@
                 </td>
             </tr>
         }
-        </table>
-        <button type="button" class="btn btn-light">@Html.ActionLink("New", "New")</button>
+        </table> 
+
+        <div class="row"> 
+            <div class="col-md-4">
+                @Html.ActionLink("New", "New")
+            </div>
+            <div class="col-md-4"> 
+                @Html.ActionLink("Previous", "Index", "Home", new { page = Model.Page-1 }, null) 
+                
+                &nbsp;Page @Html.DisplayFor(item => item.Page)/@Html.DisplayFor(item => item.MaxPages)&nbsp;
+
+                @Html.ActionLink("Next", "Index", "Home", new { page = Model.Page+1 }, null)
+            </div>
+        </div>
     </div>
 </body>
